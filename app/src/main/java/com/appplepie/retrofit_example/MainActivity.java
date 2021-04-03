@@ -3,7 +3,6 @@ package com.appplepie.retrofit_example;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -29,14 +28,14 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         RetrofitService service1 = retrofit.create(RetrofitService.class);
 
-        Call<PostResult> call = service1.getPosts("1"); // {post}에 1을 대입
+        Call<TodoResult> call = service1.getTodos("1"); // {todo}에 1을 대입
 
         btn_request.setOnClickListener(v -> {
-            call.enqueue(new Callback<PostResult>() {
+            call.enqueue(new Callback<TodoResult>() {
                 @Override
-                public void onResponse(Call<PostResult> call, Response<PostResult> response) {
+                public void onResponse(Call<TodoResult> call, Response<TodoResult> response) {
                     if(response.isSuccessful()){
-                        PostResult result = response.body();
+                        TodoResult result = response.body();
                         Toast.makeText(MainActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(MainActivity.this, "실패", Toast.LENGTH_SHORT).show();
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<PostResult> call, Throwable t) {
+                public void onFailure(Call<TodoResult> call, Throwable t) {
                     Toast.makeText(MainActivity.this, "실패", Toast.LENGTH_SHORT).show();
                 }
             });
